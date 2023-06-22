@@ -1,0 +1,13 @@
+.nameCell {
+  font-size: 1rem;
+}
+
+.cryptoImage {
+  margin-right: 0.5rem;
+  width: 30px;
+}
+
+.cryptoSymbol {
+  margin-left: 0.3rem;
+  color: gray;
+}

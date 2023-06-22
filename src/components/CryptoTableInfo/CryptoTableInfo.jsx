@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
+import CryptoTable from "../CryptoTable/CryptoTable";
+import "./CryptoTableInfoStyles.css";
 
 const CryptoTableInfo = () => {
   const [data, setData] = useState([]);
@@ -27,38 +29,64 @@ const CryptoTableInfo = () => {
     {
       Header: "Name",
       accessor: "name",
+      Cell: ({ value, row }) => {
+        return (
+          <p className="nameCell">
+            <img className="cryptoImage" src={row.original.image} alt={value} />
+            {value}
+            <span className="cryptoSymbol">
+              {row.original.symbol.toUpperCase()}
+            </span>
+          </p>
+        );
+      },
     },
     {
       Header: "Price",
       accessor: "current_price",
-      Cell: ({ value }) => {
-        <p>$ {parseFloat(value.toFixed(2)).toLocaleString()}</p>;
+      Cell: ({ cell: { value } }) => {
+        <p className="priceCell">
+          $ {parseFloat(value.toFixed(2)).toLocaleString()}
+        </p>;
       },
     },
     {
       Header: "Price Change (24h)",
       accessor: "price_change_percentage_24h",
-      Cell: ({ value }) => {
-        <p className="ss">{value}</p>;
+      Cell: ({ cell: { value } }) => {
+        <p className={value >= 0 ? "risePercentage" : "dropPercentage"}>
+          {value}
+        </p>;
       },
     },
     {
       Header: "Market Cap Change (24h)",
       accessor: "market_cap_change_percentage_24h",
+      Cell: ({ cell: { value } }) => {
+        <p className={value >= 0 ? "risePercentage" : "dropPercentage"}>
+          {value}
+        </p>;
+      },
     },
     {
       Header: "Market Cap",
       accessor: "market_cap",
+      Cell: ({ cell: { value } }) => {
+        <p>{value}</p>;
+      },
     },
     {
       Header: "Circulating Supply",
       accessor: "circulating_supply",
+      Cell: ({ cell: { value } }) => {
+        <p>{value}</p>;
+      },
     },
   ];
 
   // market_cap_rank, name, symbol image, current_price, market_cap, price_change_percentage_24h, market_cap_change_percentage_24h, circulating_supply
 
-  return <div>CryptoTableInfo</div>;
+  return <CryptoTable columns={columns} data={data} />;
 };
 
 export default CryptoTableInfo;
