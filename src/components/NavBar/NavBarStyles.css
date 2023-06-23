@@ -5,7 +5,7 @@
 
 .navTitle {
   color: white;
-  margin-left: 14rem;
+  /* margin-left: 14rem; */
   font-size: 1.5rem;
 }
 
@@ -15,4 +15,15 @@
   color: white;
   margin-left: 50rem;
   margin-top: 2rem;
+}
+
+.navbarSubContainer {
+  display: flex;
+  margin-left: 15rem;
+}
+
+.cryptoLogo {
+  background-color: white;
+  margin: 0 10px;
+  width: 70px;
 }

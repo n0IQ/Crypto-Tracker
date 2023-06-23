@@ -1,4 +1,5 @@
 .nameCell {
+  text-align: start;
   font-size: 1rem;
 }
 
@@ -10,4 +11,26 @@
 .cryptoSymbol {
   margin-left: 0.3rem;
   color: gray;
+}
+
+.priceCell {
+  text-align: end;
+  padding-right: 20px;
+}
+
+.risePercentage {
+  color: #16c784;
+}
+
+.dropPercentage {
+  color: #ea3943;
+}
+
+.upArrowIcon {
+  color: #16c784;
+  width: 8%;
+}
+
+.downArrowIcon {
+  color: #ea3943;
 }

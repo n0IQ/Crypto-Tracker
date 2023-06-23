@@ -1,5 +1,6 @@
 import React from "react";
 import { useTable } from "react-table";
+import "./CryptoTable.css";
 
 const CryptoTable = ({ columns, data }) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
@@ -9,23 +10,29 @@ const CryptoTable = ({ columns, data }) => {
     });
 
   return (
-    <table {...getTableProps()}>
-      <thead>
+    <table {...getTableProps()} className="table">
+      <thead className="tableHeader">
         {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => (
-              <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+            {headerGroup.headers?.map((column) => (
+              <th {...column.getHeaderProps()} className="tableHead">
+                {column.render("Header")}
+              </th>
             ))}
           </tr>
         ))}
       </thead>
-      <tbody {...getTableBodyProps()}>
-        {rows.map((row, i) => {
+      <tbody {...getTableBodyProps()} className="tableBody">
+        {rows.map((row) => {
           prepareRow(row);
           return (
-            <tr {...row.getRowProps()}>
-              {row.cells.map((cell) => {
-                return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
+            <tr {...row.getRowProps()} className="tableRow">
+              {row.cells?.map((cell) => {
+                return (
+                  <td {...cell.getCellProps()} className="tableData">
+                    {cell.render("Cell")}
+                  </td>
+                );
               })}
             </tr>
           );

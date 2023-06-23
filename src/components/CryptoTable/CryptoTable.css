@@ -1,0 +1,27 @@
+table {
+  margin: 20px 200px;
+  width: 75%;
+  border-collapse: collapse;
+}
+
+.tableHeader {
+  border-top: solid #ced3d8 0.5px;
+  border-bottom: solid #ced3d8 0.5px;
+}
+
+.tableHead,
+.tableData {
+  border-bottom: 1px solid #ced3d8;
+  padding: 8px 0;
+  text-align: left;
+}
+
+.tableHead {
+  padding: 1rem 2rem;
+  text-align: start;
+}
+
+.tableData {
+  font-weight: bold;
+  text-align: center;
+}

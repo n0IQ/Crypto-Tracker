@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
+import { BiSolidUpArrow, BiSolidDownArrow } from "react-icons/bi";
 import CryptoTable from "../CryptoTable/CryptoTable";
 import "./CryptoTableInfoStyles.css";
 
@@ -44,42 +45,58 @@ const CryptoTableInfo = () => {
     {
       Header: "Price",
       accessor: "current_price",
-      Cell: ({ cell: { value } }) => {
-        <p className="priceCell">
-          $ {parseFloat(value.toFixed(2)).toLocaleString()}
-        </p>;
+      Cell: ({ value }) => {
+        return (
+          <p className="priceCell">
+            $ {parseFloat(value.toFixed(2)).toLocaleString()}
+          </p>
+        );
       },
     },
     {
       Header: "Price Change (24h)",
       accessor: "price_change_percentage_24h",
-      Cell: ({ cell: { value } }) => {
-        <p className={value >= 0 ? "risePercentage" : "dropPercentage"}>
-          {value}
-        </p>;
+      Cell: ({ value }) => {
+        return (
+          <p className={value >= 0 ? "risePercentage" : "dropPercentage"}>
+            {value >= 0 ? (
+              <BiSolidUpArrow className="upArrowIcon" />
+            ) : (
+              <BiSolidDownArrow className="downArrowIcon" />
+            )}
+            {value}
+          </p>
+        );
       },
     },
     {
       Header: "Market Cap Change (24h)",
       accessor: "market_cap_change_percentage_24h",
-      Cell: ({ cell: { value } }) => {
-        <p className={value >= 0 ? "risePercentage" : "dropPercentage"}>
-          {value}
-        </p>;
+      Cell: ({ value }) => {
+        return (
+          <p className={value >= 0 ? "risePercentage" : "dropPercentage"}>
+            {value >= 0 ? (
+              <BiSolidUpArrow className="upArrowIcon" />
+            ) : (
+              <BiSolidDownArrow className="downArrowIcon" />
+            )}
+            {" " + value}
+          </p>
+        );
       },
     },
     {
       Header: "Market Cap",
       accessor: "market_cap",
-      Cell: ({ cell: { value } }) => {
-        <p>{value}</p>;
+      Cell: ({ value }) => {
+        return <p>$ {value}</p>;
       },
     },
     {
       Header: "Circulating Supply",
       accessor: "circulating_supply",
-      Cell: ({ cell: { value } }) => {
-        <p>{value}</p>;
+      Cell: ({ value }) => {
+        return <p>{value}</p>;
       },
     },
   ];
