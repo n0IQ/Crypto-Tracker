@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
-import { BiSolidUpArrow, BiSolidDownArrow } from "react-icons/bi";
+import { BiSolidUpArrow, BiSolidDownArrow, BiLoaderAlt } from "react-icons/bi";
 import CryptoTable from "../CryptoTable/CryptoTable";
 import "./CryptoTableInfoStyles.css";
 
 const CryptoTableInfo = () => {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios
@@ -15,12 +16,22 @@ const CryptoTableInfo = () => {
       .then((res) => {
         // console.log("cryptoData", res.data);
         setData(res.data);
+        setLoading(false);
       })
       .catch((err) => {
         console.log("Axios Error 💥");
         throw new AxiosError("Data did not get fetched");
       });
   }, []);
+
+  if (loading) {
+    return (
+      <div className="loadingContainer">
+        <BiLoaderAlt />
+        Loading...
+      </div>
+    );
+  }
 
   const columns = [
     {

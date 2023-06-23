@@ -34,3 +34,11 @@
 .downArrowIcon {
   color: #ea3943;
 }
+
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 250px;
+  align-items: center;
+  font-size: 2rem;
+}
