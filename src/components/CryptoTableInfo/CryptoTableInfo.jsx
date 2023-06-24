@@ -128,15 +128,24 @@ const CryptoTableInfo = () => {
     },
   ];
 
+  const lastPage = 10;
+
   return (
-    <div>
-      <CryptoTable columns={columns} data={cryptoData} />
-      <Pagination
-        currentPage={currentPage}
-        totalCount={data.length}
-        pageSize={pageSize}
-        onPageChange={(page) => setCurrentPage(page)}
-      />
+    <div className="tableContainer">
+      <div className="cryptoTableContainer">
+        <CryptoTable columns={columns} data={cryptoData} />
+      </div>
+      <div
+        className={`paginationContainer ${
+          currentPage > 3 && currentPage < lastPage - 3 ? "middlePage" : ""
+        }`}>
+        <Pagination
+          currentPage={currentPage}
+          totalCount={data.length}
+          pageSize={pageSize}
+          onPageChange={(page) => setCurrentPage(page)}
+        />
+      </div>
     </div>
   );
 };
