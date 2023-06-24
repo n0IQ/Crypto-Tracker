@@ -1,12 +1,30 @@
-import React, { useEffect, useState } from "react";
-import axios, { AxiosError } from "axios";
+import React, { useEffect, useMemo, useState } from "react";
+import axios from "axios";
 import { BiSolidUpArrow, BiSolidDownArrow, BiLoaderAlt } from "react-icons/bi";
 import CryptoTable from "../CryptoTable/CryptoTable";
 import "./CryptoTableInfoStyles.css";
+import Pagination from "../Pagination/Pagination";
 
 const CryptoTableInfo = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
+
+  const cryptoData = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * pageSize;
+    const lastPageIndex = firstPageIndex + pageSize;
+    return data.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage]);
+
+  const showLoader = () => {
+    return (
+      <div className="loadingContainer">
+        <BiLoaderAlt />
+        Loading...
+      </div>
+    );
+  };
 
   useEffect(() => {
     axios
@@ -19,18 +37,17 @@ const CryptoTableInfo = () => {
         setLoading(false);
       })
       .catch((err) => {
-        console.log("Axios Error 💥");
-        throw new AxiosError("Data did not get fetched");
+        console.log(
+          "Axios Error 💥 Rate Limit Exceed! Data did not get fetched"
+        );
+
+        setLoading(true);
+        return showLoader();
       });
-  }, []);
+  }, [currentPage]);
 
   if (loading) {
-    return (
-      <div className="loadingContainer">
-        <BiLoaderAlt />
-        Loading...
-      </div>
-    );
+    showLoader();
   }
 
   const columns = [
@@ -112,9 +129,23 @@ const CryptoTableInfo = () => {
     },
   ];
 
-  // market_cap_rank, name, symbol image, current_price, market_cap, price_change_percentage_24h, market_cap_change_percentage_24h, circulating_supply
-
-  return <CryptoTable columns={columns} data={data} />;
+  return (
+    <div>
+      {cryptoData.length > 0 ? (
+        <>
+          <CryptoTable columns={columns} data={cryptoData} />
+          <Pagination
+            currentPage={currentPage}
+            totalCount={data.length}
+            pageSize={pageSize}
+            onPageChange={(page) => setCurrentPage(page)}
+          />
+        </>
+      ) : (
+        showLoader()
+      )}
+    </div>
+  );
 };
 
 export default CryptoTableInfo;
