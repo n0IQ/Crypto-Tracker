@@ -2,8 +2,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { BiSolidUpArrow, BiSolidDownArrow, BiLoaderAlt } from "react-icons/bi";
 import CryptoTable from "../CryptoTable/CryptoTable";
-import "./CryptoTableInfoStyles.css";
 import Pagination from "../Pagination/Pagination";
+import "./CryptoTableInfoStyles.css";
 
 const CryptoTableInfo = () => {
   const [data, setData] = useState([]);
@@ -15,7 +15,7 @@ const CryptoTableInfo = () => {
     const firstPageIndex = (currentPage - 1) * pageSize;
     const lastPageIndex = firstPageIndex + pageSize;
     return data.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage]);
+  }, [currentPage, data]);
 
   const showLoader = () => {
     return (
@@ -42,12 +42,11 @@ const CryptoTableInfo = () => {
         );
 
         setLoading(true);
-        return showLoader();
       });
   }, [currentPage]);
 
   if (loading) {
-    showLoader();
+    return showLoader();
   }
 
   const columns = [
@@ -131,19 +130,13 @@ const CryptoTableInfo = () => {
 
   return (
     <div>
-      {cryptoData.length > 0 ? (
-        <>
-          <CryptoTable columns={columns} data={cryptoData} />
-          <Pagination
-            currentPage={currentPage}
-            totalCount={data.length}
-            pageSize={pageSize}
-            onPageChange={(page) => setCurrentPage(page)}
-          />
-        </>
-      ) : (
-        showLoader()
-      )}
+      <CryptoTable columns={columns} data={cryptoData} />
+      <Pagination
+        currentPage={currentPage}
+        totalCount={data.length}
+        pageSize={pageSize}
+        onPageChange={(page) => setCurrentPage(page)}
+      />
     </div>
   );
 };

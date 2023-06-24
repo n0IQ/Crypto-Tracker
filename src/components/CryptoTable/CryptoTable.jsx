@@ -1,7 +1,6 @@
 import React from "react";
 import { useTable } from "react-table";
 import "./CryptoTable.css";
-import Pagination from "../Pagination/Pagination";
 
 const CryptoTable = ({ columns, data }) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =

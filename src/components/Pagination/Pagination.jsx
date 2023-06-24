@@ -34,25 +34,24 @@ const Pagination = (props) => {
 
   return (
     <ul className="pagination-container">
-      {/* Left navigation arrow */}
       <li
-        className={
-          ("pagination-item",
-          {
-            disabled: currentPage === 1,
-          })
-        }
+        className={`pagination-item ${currentPage === 1 ? "disabled" : ""}`}
         onClick={onPrevious}>
         <AiFillCaretLeft className="arrow left" />
       </li>
-      {paginationRange.map((pageNumber) => {
+      {paginationRange.map((pageNumber, index) => {
         // If the pageItem is a DOT, render the DOTS unicode character
         if (pageNumber === DOTS) {
-          return <li className="pagination-item dots">&#8230;</li>;
+          return (
+            <li key={`dots${index}`} className="pagination-item dots">
+              &#8230;
+            </li>
+          );
         }
 
         return (
           <li
+            key={pageNumber}
             className={
               (`pagination-item`, { selected: pageNumber === currentPage })
             }
@@ -61,14 +60,10 @@ const Pagination = (props) => {
           </li>
         );
       })}
-      {/*  Right Navigation arrow */}
       <li
-        className={
-          (`pagination-item`,
-          {
-            disabled: currentPage === lastPage,
-          })
-        }
+        className={`pagination-item ${
+          currentPage === lastPage ? "disabled" : ""
+        }`}
         onClick={onNext}>
         <AiFillCaretRight className="arrow right" />
       </li>
