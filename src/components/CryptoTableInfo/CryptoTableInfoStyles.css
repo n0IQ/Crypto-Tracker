@@ -1,3 +1,22 @@
+.tableContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.cryptoTableContainer {
+  display: flex;
+}
+
+.paginationContainer {
+  display: flex;
+  margin-left: 32rem;
+}
+
+.middlePage {
+  margin-left: 27rem;
+}
+
 .nameCell {
   text-align: start;
   font-size: 1rem;
